@@ -35,16 +35,16 @@
           Une question sur un livre, une application ou un projet ?
           Remplissez ce formulaire : je lis tout, et je réponds.
         </p>
-        <form class="form" action="https://formsubmit.co/fgrimbert@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="Nouveau message depuis le site frog-style.github.io" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_next" value="https://frog-style.github.io/merci.html" />
-          <input type="hidden" name="_url" value="https://frog-style.github.io/contact.html" />
-          <input type="text" name="_honey" class="sr-only" tabindex="-1" autocomplete="off" />
+        <form id="contact-form" class="form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="528f37d3-0ed5-4a9f-a43a-93bb937d8ad8" />
+          <input type="hidden" name="subject" value="Nouveau message depuis apps.frogstyle.fr" />
+          <input type="hidden" name="from_name" value="Site de Frédéric Grimbert" />
+          <input type="hidden" name="redirect" value="https://apps.frogstyle.fr/merci.html" />
+          <input type="checkbox" name="botcheck" hidden tabindex="-1" aria-hidden="true" />
 
           <div class="form__field">
             <label for="nom">Votre nom</label>
-            <input type="text" id="nom" name="nom" required autocomplete="name" />
+            <input type="text" id="nom" name="name" required autocomplete="name" />
           </div>
 
           <div class="form__field">
@@ -58,6 +58,12 @@
           </div>
 
           <button type="submit" class="contact__button form__submit">Envoyer le message</button>
+          <p id="form-status" role="status" aria-live="polite"></p>
+          <p class="contact__text">
+            Votre nom, votre adresse e-mail et votre message sont transmis à Web3Forms
+            pour me permettre de vous répondre. Merci de ne pas communiquer de données
+            de santé dans ce formulaire.
+          </p>
         </form>
       </div>
     </section>
@@ -72,6 +78,38 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+    const button = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (button.disabled) return;
+      button.disabled = true;
+      button.textContent = 'Envoi en cours…';
+      status.textContent = '';
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 20000);
+      try {
+        const data = Object.fromEntries(new FormData(form));
+        delete data.redirect;
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(data),
+          signal: controller.signal
+        });
+        const result = await response.json();
+        if (!response.ok || result.success !== true) throw new Error('Submission failed');
+        window.location.assign('merci.html');
+      } catch (error) {
+        status.textContent = "Le message n'a pas pu être envoyé. Votre texte est conservé. Veuillez réessayer dans quelques instants.";
+        button.disabled = false;
+        button.textContent = 'Envoyer le message';
+      } finally {
+        clearTimeout(timeout);
+      }
+    });
   </script>
 </body>
 </html>
