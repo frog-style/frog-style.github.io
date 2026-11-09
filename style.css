@@ -96,6 +96,18 @@ a:hover { color: var(--color-primary-hover); }
   border-radius: var(--radius-sm);
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -114,6 +126,10 @@ a, button {
 .container {
   width: min(var(--content-default), 100% - var(--space-8));
   margin-inline: auto;
+}
+
+.container--narrow {
+  width: min(var(--content-narrow), 100% - var(--space-8));
 }
 
 /* ---------- En-tête ---------- */
@@ -330,4 +346,55 @@ a, button {
   flex-wrap: wrap;
   font-size: var(--text-xs);
   color: var(--color-text-muted);
+}
+
+/* ---------- Page contact ---------- */
+.contact-page__inner {
+  min-height: 70dvh;
+  display: flex;
+  align-items: flex-start;
+  padding-top: clamp(var(--space-12), 6vw, var(--space-20));
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.form__field label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.form__field input,
+.form__field textarea {
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+
+.form__field input:focus-visible,
+.form__field textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+  border-color: var(--color-primary);
+}
+
+.form__submit {
+  align-self: flex-start;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
 }

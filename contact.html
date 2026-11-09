@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact · Frédéric Grimbert</title>
+  <meta name="description" content="Formulaire de contact pour écrire à Frédéric Grimbert, auteur indépendant et créateur d'applications." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=zodiak@400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a class="header__brand" href="index.html">Frédéric Grimbert</a>
+      <nav class="header__nav" aria-label="Navigation principale">
+        <a href="index.html#activites">Activités</a>
+        <a href="index.html#equilibre-vivant">Équilibre Vivant</a>
+        <a href="index.html#entreprise">L'entreprise</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contact-page">
+    <section class="section contact-page__inner">
+      <div class="container container--narrow">
+        <h1 class="section__title">M'écrire</h1>
+        <p class="contact__text">
+          Une question sur un livre, une application ou un projet ?
+          Remplissez ce formulaire : je lis tout, et je réponds.
+        </p>
+        <form class="form" action="https://formsubmit.co/fgrimbert@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Nouveau message depuis le site frog-style.github.io" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="https://frog-style.github.io/merci.html" />
+          <input type="text" name="_honey" class="sr-only" tabindex="-1" autocomplete="off" />
+
+          <div class="form__field">
+            <label for="nom">Votre nom</label>
+            <input type="text" id="nom" name="nom" required autocomplete="name" />
+          </div>
+
+          <div class="form__field">
+            <label for="email">Votre adresse e-mail</label>
+            <input type="email" id="email" name="email" required autocomplete="email" />
+          </div>
+
+          <div class="form__field">
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" rows="7" required></textarea>
+          </div>
+
+          <button type="submit" class="contact__button form__submit">Envoyer le message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© <span id="year">2026</span> Frédéric Grimbert · Tous droits réservés</p>
+      <p class="footer__meta">Entreprise individuelle · Bordeaux, France</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
